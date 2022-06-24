@@ -3,7 +3,7 @@
  * Server-side rendering of my block. Extend it for others
  *
  * @package WordPress
- * @subpackage tf
+ * @subpackage tf-theme
  * @since 1.0.1
  * @author Tommyfrog
  */
