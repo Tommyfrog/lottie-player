@@ -9,20 +9,31 @@
  */
 define('GUTENBERG_URI', 	get_template_directory_uri().	'/inc/blocks/' );
 
+//load scripts
+function tf_gutenberg_scripts() {
+	//scripts and libary for gutenberg-blocks in editor and frontend
+	global $version;
+	wp_enqueue_script ( 'lottie-player',  	 GUTENBERG_URI. '/js/lottie-player.js', 	array('wp-blocks'), 		$version,	true);
+	wp_enqueue_script ( 'lottie-ctrl',  	 GUTENBERG_URI. '/js/lottie-controls.js', 	array('lottie-player'),	 	$version, 	true);
+}
+add_action( 'enqueue_block_assets', 'tf_gutenberg_scripts');
+
+//load block
 function tf_enqueue_block_editor_assets() {
 
-	$gutenbergModules = array(
+	$blocks = array(
 		array(
 			'name' => 'lottie-block', 
 			'path' => 'lottie-player'
 		),
-		
+		// extend it for morw
 	);
 
-	foreach($gutenbergModules as $gutenbergModule){
+	//loop through all blocks to load
+	foreach($blocks as $block){
 		wp_enqueue_script(
-			$gutenbergModule['name'],
-			GUTENBERG_URI . $gutenbergModule['path'].'/block.js',
+			$block['name'],
+			GUTENBERG_URI . $block['path'].'/block.js',
 			array( 'wp-blocks', 'wp-element', 'wp-block-editor', )
 		);
 	}
